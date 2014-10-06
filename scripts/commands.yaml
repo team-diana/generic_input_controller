@@ -1,0 +1,7 @@
+SkidSteer1:
+  type: skidsteer
+  x_axis_index: 1
+  y_axis_index: 0
+  speed: 10
+  rot_multiplier: -4
+  skid_steer_topic: /rover_amalia/cmd_vel
