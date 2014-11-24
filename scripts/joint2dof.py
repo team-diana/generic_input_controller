@@ -1,15 +1,17 @@
+from command import Command
+from utils import *
+
+import rospy
+from std_msgs.msg import String
+from geometry_msgs.msg import Twist
+from sensor_msgs.msg import Joy, JointState
+
 class Joint2Dof(Command):
     """ Control a 2 DoF joint"""
     
-    def __init__(self, name, x_axis_index, y_axis_index, topic_name, x_range=None, y_range=None, clamp_below=0.01):
-        """ Args:
-        x_axis_index: index of the axis that will control the first revolute join
-        y_axis_index: index of the axis that will control the second revolute join
-        """
+    def __init__(self, name, topic_name, x_range=None, y_range=None, clamp_below=0.01):
         super(Joint2Dof, self).__init__(name)
         self.pub = rospy.Publisher(topic_name, JointState, queue_size=10)
-        self.x_index = x_axis_index
-        self.y_index = y_axis_index
         self.x_range = x_range or [-1, 1]
         self.y_range = y_range or [-1, 1]
         self.clamp_below = clamp_below
@@ -21,8 +23,8 @@ class Joint2Dof(Command):
         joint_state.position = (v1, v2)
         return joint_state
 
-    def oncallback(self, joymsg):
-        x, y = joymsg.axes[self.x_index], joymsg.axes[self.y_index]
+    def oncallback(self, cmd_data):
+        x, y = cmd_data['x'], cmd_data['y']
         x, y = clamp_center(x, self.clamp_below), clamp_center(y, self.clamp_below)
         msg = self.makemsg(x, y)
         self.pub.publish(msg)
