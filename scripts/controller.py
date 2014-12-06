@@ -57,15 +57,28 @@ class Controller():
         black = 0, 0, 0
         screen = pygame.display.set_mode(size)
 
+    def merge_keys(self, lk, rk):
+        for (l, r) in zip(lk, rk):
+            yield l or r 
+
     def run(self):
         self.running = True
+        key_merge_step = 0
+        self.last_keys = None
         while self.running:
             keys = pygame.key.get_pressed()
+            if self.last_keys == None:
+                self.last_keys = keys
             if keys[pygame.K_ESCAPE] or keys[pygame.K_q]:
                 print("\nExiting...\n")
                 self.running = False
             else:
-                [cmder.oncallback(keys) for cmder in self.keyboard_commanders]
+                self.last_keys = list(self.merge_keys(self.last_keys, keys))
+                key_merge_step = key_merge_step + 1
+                if key_merge_step == 4:
+                    [cmder.oncallback(self.last_keys) for cmder in self.keyboard_commanders]
+                    key_merge_step = 0
+                    self.last_keys = None
             pygame.event.pump()
 
     def joy_callback(self, joy):
