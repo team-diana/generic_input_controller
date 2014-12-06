@@ -31,6 +31,7 @@ import sys
 
 from command import Command
 from skidsteer import SkidSteer
+from float64 import Float64
 from joint2dof import Joint2Dof
 
 from commander import Commander
@@ -87,6 +88,7 @@ def read_commanders(commands_file, commands_dict, commanders_dict):
             cmder_name = source.keys()[0]
             cmder_values = source.values()[0]
             cmder_type = cmder_values['type']
+            print("instantiating " + str(cmder_type))
             cmder_cls = commanders_dict[cmder_type]
             cmder_values.pop('type')
             values.pop('source')
@@ -102,7 +104,7 @@ def read_commanders(commands_file, commands_dict, commanders_dict):
 
 if __name__ == '__main__':
     opts = docopt(__doc__)
-    commands_dict = { "skidsteer": SkidSteer, "joint2dof": Joint2Dof }
+    commands_dict = { "skidsteer": SkidSteer, "joint2dof": Joint2Dof, "float64": Float64 }
     commanders_dict = { "joyjoystick": JoyJoystickCommander, "keyboard2axis": Keyboard2AxisCommander }
     try:
         given_config_file = opts['--config'] 

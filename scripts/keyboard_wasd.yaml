@@ -7,7 +7,7 @@ SkidSteer1:
       y_axis: [s, w]
       x_axis_multiplier: 1
       y_axis_multiplier: 1
-  speed: 0.1
+  speed: 0.3
   rot_multiplier: -1
   skid_steer_topic: /rover_amalia/cmd_vel
   clamp_below: 0.2
@@ -16,11 +16,11 @@ Joint2Dof1:
   source:
     Keyboard2Axis2:
       type: keyboard2axis
-      x_axis: [j, l]
-      y_axis: [k, i]
+      x_axis: [l, j]
+      y_axis: [i, k]
       x_axis_multiplier: 0.3
       y_axis_multiplier: 0.3
-  x_range: [3.14, -3.14] # invert axis
-  y_range: [1.8, -1.8] # invert axis
+  x_range: [-3.14, 3.14] # invert axis
+  y_range: [-1.8, 1.8] # invert axis
   clamp_below: 0.01
   topic_name: /ptu/cmd
