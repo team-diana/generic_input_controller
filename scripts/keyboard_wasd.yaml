@@ -18,9 +18,66 @@ Joint2Dof1:
       type: keyboard2axis
       x_axis: [j, l]
       y_axis: [i, k]
-      x_axis_multiplier: 0.3
-      y_axis_multiplier: 0.3
-  x_range: [-3.14, 3.14] # invert axis
-  y_range: [-1.8, 1.8] # invert axis
+      x_axis_multiplier: 0.1
+      y_axis_multiplier: 0.1
+  x_range: [-3.14, 3.14] 
+  y_range: [-0.5, 0.5] 
   clamp_below: 0.01
   topic_name: /ptu/cmd
+  additive: True
+Float64_1:
+  type: float64
+  source:
+    Keyboard2Axis1:
+      type: keyboard2axis
+      x_axis: [e, '3']
+      x_axis_multiplier: -0.1
+      y_axis: [z, c] # ignored
+      y_axis_multiplier: 0.1 # ignored
+  clamp_below: 0
+  x_range: [-8, 1] 
+  topic_name: /motore_1_controller/command
+  joint_state_topic_name: /motore_1_controller/state
+  additive: True
+Float64_2:
+  type: float64
+  source:
+    Keyboard2Axis2:
+      type: keyboard2axis
+      x_axis: [r, '4']
+      x_axis_multiplier: -0.1
+      y_axis: [z, c] # ignored
+      y_axis_multiplier: 0.1 # ignored
+  clamp_below: 0
+  x_range: [-8, 1] 
+  topic_name: /motore_2_controller/command
+  joint_state_topic_name: /motore_2_controller/state
+  additive: True
+Float64_3:
+  type: float64
+  source:
+    Keyboard2Axis3:
+      type: keyboard2axis
+      x_axis: [t, '5']
+      x_axis_multiplier: 0.1
+      y_axis: [z, c] # ignored
+      y_axis_multiplier: 0.1 # ignored
+  clamp_below: 0
+  x_range: [-1, 8] 
+  topic_name: /motore_3_controller/command
+  joint_state_topic_name: /motore_3_controller/state
+  additive: True
+Float64_4:
+  type: float64
+  source:
+    Keyboard2Axis4:
+      type: keyboard2axis
+      x_axis: [y, '6']
+      x_axis_multiplier: 0.1
+      y_axis: [z, c] # ignored
+      y_axis_multiplier: 0.1 # ignored
+  clamp_below: 0
+  x_range: [-1, 8] 
+  topic_name: /motore_4_controller/command
+  joint_state_topic_name: /motore_4_controller/state
+  additive: True

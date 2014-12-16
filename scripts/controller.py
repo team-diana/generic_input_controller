@@ -28,6 +28,7 @@ import rospy
 import yaml
 import os
 import sys
+import time
 
 from command import Command
 from skidsteer import SkidSteer
@@ -45,7 +46,6 @@ from sensor_msgs.msg import Joy, JointState
 
 class Controller():
     def __init__(self, commanders):
-        rospy.init_node('controller')
         rospy.Subscriber('joy', Joy, self.joy_callback) 
         self.joy_commanders = list(filter(lambda c: c.source() == "joystick", commanders))
         self.keyboard_commanders = list(filter(lambda c: c.source() == "keyboard", commanders))
@@ -80,6 +80,7 @@ class Controller():
                     key_merge_step = 0
                     self.last_keys = None
             pygame.event.pump()
+            time.sleep(0.01)
 
     def joy_callback(self, joy):
         [cmder.oncallback(joy) for cmder in self.joy_commanders]
@@ -117,6 +118,7 @@ def read_commanders(commands_file, commands_dict, commanders_dict):
 
 if __name__ == '__main__':
     opts = docopt(__doc__)
+    rospy.init_node('controller')
     commands_dict = { "skidsteer": SkidSteer, "joint2dof": Joint2Dof, "float64": Float64 }
     commanders_dict = { "joyjoystick": JoyJoystickCommander, "keyboard2axis": Keyboard2AxisCommander }
     try:
