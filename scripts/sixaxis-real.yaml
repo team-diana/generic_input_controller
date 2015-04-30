@@ -1,0 +1,83 @@
+SkidSteer1:
+  type: skidsteer
+  source:
+    JoyJoystickCommander1:
+      type: joyjoystick
+      x_axis_index: 0
+      y_axis_index: 1
+  speed: 0.5
+  rot_multiplier: -4
+  skid_steer_topic: /rover_amalia/cmd_vel
+  clamp_below: 0.2
+Joint2Dof1:
+  type: joint2dof
+  source:
+    JoyJoystickCommander2:
+      type: joyjoystick
+      x_axis_index: 2
+      y_axis_index: 3
+      x_axis_mul: 1
+      y_axis_mul: 1
+  x_range: [-2, 2]
+  y_range: [-1, 1] 
+  clamp_below: 0.1
+  x_mul: 0.005
+  y_mul: 0.005
+  topic_name: /ptu/cmd
+  additive: True
+Float64_1:
+  type: float64
+  source:
+    Keyboard2Axis1:
+      type: keyboard2axis
+      x_axis: [f, r]
+      x_axis_multiplier: -0.1
+      y_axis: [z, c] # ignored
+      y_axis_multiplier: 0.1 # ignored
+  clamp_below: 0
+  x_range: [-8, 1] 
+  topic_name: /motore_1_controller/command
+  joint_state_topic_name: /motore_1_controller/state
+  additive: True
+Float64_2:
+  type: float64
+  source:
+    Keyboard2Axis2:
+      type: keyboard2axis
+      x_axis: [g, t]
+      x_axis_multiplier: -0.1
+      y_axis: [z, c] # ignored
+      y_axis_multiplier: 0.1 # ignored
+  clamp_below: 0
+  x_range: [-8, 1] 
+  topic_name: /motore_2_controller/command
+  joint_state_topic_name: /motore_2_controller/state
+  additive: True
+Float64_3:
+  type: float64
+  source:
+    Keyboard2Axis3:
+      type: keyboard2axis
+      x_axis: [h, y]
+      x_axis_multiplier: 0.1
+      y_axis: [z, c] # ignored
+      y_axis_multiplier: 0.1 # ignored
+  clamp_below: 0
+  x_range: [-1, 8] 
+  topic_name: /motore_3_controller/command
+  joint_state_topic_name: /motore_3_controller/state
+  additive: True
+Float64_4:
+  type: float64
+  source:
+    Keyboard2Axis4:
+      type: keyboard2axis
+      x_axis: [j, u]
+      x_axis_multiplier: 0.1
+      y_axis: [z, c] # ignored
+      y_axis_multiplier: 0.1 # ignored
+  clamp_below: 0
+  x_range: [-1, 8] 
+  topic_name: /motore_4_controller/command
+  joint_state_topic_name: /motore_4_controller/state
+  additive: True
